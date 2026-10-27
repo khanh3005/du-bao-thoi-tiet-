@@ -1,0 +1,9 @@
+{
+  "baseline_all_8_models": true,
+  "baseline_test_completed": true,
+  "app_30_images_parity": true,
+  "experimental_all_8_models": true,
+  "experimental_test_status": "NOT EVALUATED; needs new independent labeled data",
+  "windows_execution_status": "Not run on Windows; direct package wheel availability checked",
+  "remaining_quality_issue": "Baseline cloudy external 0/4; experimental quality requires independent evaluation"
+}

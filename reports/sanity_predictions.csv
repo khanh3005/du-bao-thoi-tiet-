@@ -1,0 +1,16 @@
+file,true_label,predicted,confidence,correct
+dataset/cloudy/cloudy1.jpg,cloudy,cloudy,0.8485204692470736,True
+dataset/cloudy/cloudy10.jpg,cloudy,cloudy,0.9013277429854146,True
+dataset/cloudy/cloudy100.jpg,cloudy,cloudy,0.8229256377378577,True
+dataset/foggy/foggy1.jpg,foggy,foggy,0.9211993642170326,True
+dataset/foggy/foggy10.jpg,foggy,foggy,0.9208024621446855,True
+dataset/foggy/foggy100.jpg,foggy,foggy,0.9271953430988515,True
+dataset/rainy/rain1.jpg,rainy,rainy,0.8596577714604149,True
+dataset/rainy/rain10.jpg,rainy,rainy,0.8780325211227634,True
+dataset/rainy/rain100.jpg,rainy,rainy,0.8903417461920295,True
+dataset/shine/shine1.jpg,shine,shine,0.9814808286829141,True
+dataset/shine/shine10.jpg,shine,shine,0.9736376830706712,True
+dataset/shine/shine100.jpg,shine,shine,0.9480298182374831,True
+dataset/sunrise/sunrise1.jpg,sunrise,sunrise,0.9890837924909568,True
+dataset/sunrise/sunrise102.jpg,sunrise,sunrise,0.9752863067124926,True
+dataset/sunrise/sunrise103.jpg,sunrise,sunrise,0.9964358945874405,True

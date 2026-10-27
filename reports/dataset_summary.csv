@@ -1,0 +1,6 @@
+class,raw,unique,train,test
+cloudy,300,291,232,59
+foggy,300,291,232,59
+rainy,299,287,229,58
+shine,249,246,197,49
+sunrise,350,345,276,69

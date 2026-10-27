@@ -1,0 +1,41 @@
+{
+  "image": "weather_ml_project/alien_test/Cloud_1.png",
+  "image_sha256": "729c72e60ca28803c827fcecbcac70e3c7df58815e79900e2e42554fa619e09b",
+  "model": "SVM RBF",
+  "model_sha256": "7fdcdc401f762f8c07437d8e5adc8a8353c7d775045f538ebe246567169921ed",
+  "dataset_id": "0389506b9437cf3339e2b15342170545aa55145cdf61b61fe4d7df971f629507",
+  "mapping": {
+    "0": "cloudy",
+    "1": "foggy",
+    "2": "rainy",
+    "3": "shine",
+    "4": "sunrise"
+  },
+  "preprocessing": {
+    "size": [
+      64,
+      64
+    ],
+    "color": "RGB",
+    "dtype": "float32",
+    "scale": 255,
+    "order": "C",
+    "resize": "INTER_LINEAR",
+    "decoder": "cv2.IMREAD_COLOR",
+    "features": 12288
+  },
+  "feature_shape": [
+    12288
+  ],
+  "dtype": "float32",
+  "min": 0.21176470816135406,
+  "max": 1.0,
+  "feature_sha256": "d6d3345a39089f88f8e0aa31aa8400bed2ac8a5c40c47cd53ec170168c0bd93b",
+  "script_equals_app_path": true,
+  "predicted": "foggy",
+  "confidence": 0.8925059870474101,
+  "true_label": "cloudy",
+  "correct": false
+}
+Hai đường inference cho cùng kết quả sai: không phải sai riêng của giao diện.
+Đối chiếu báo cáo leakage, nhãn, dữ liệu và CV trước khi kết luận giới hạn model.

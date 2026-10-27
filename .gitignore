@@ -1,0 +1,16 @@
+# Môi trường ảo Python
+.venv/
+env/
+venv/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.tmp
+temp_py.txt
+
+# Dữ liệu mảng npy lớn sinh ra từ preprocessing (tránh vượt giới hạn GitHub)
+processed/X_*.npy
+processed/y_*.npy
+processed/groups_*.npy

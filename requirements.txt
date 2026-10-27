@@ -1,0 +1,12 @@
+# Python 3.12; các bản trực tiếp đã chạy trong môi trường kiểm tra.
+numpy==2.3.5
+pandas==2.2.3
+scipy==1.17.0
+matplotlib==3.10.8
+opencv-python-headless==4.11.0.86
+scikit-learn==1.8.0
+joblib==1.5.3
+threadpoolctl==3.6.0
+xgboost==3.0.5
+lightgbm==4.6.0
+streamlit==1.49.1

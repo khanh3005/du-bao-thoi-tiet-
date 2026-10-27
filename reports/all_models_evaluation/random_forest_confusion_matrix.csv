@@ -1,0 +1,6 @@
+,cloudy,foggy,rainy,shine,sunrise
+cloudy,32,13,6,6,2
+foggy,10,37,4,0,8
+rainy,10,9,38,0,1
+shine,0,0,0,49,0
+sunrise,1,2,1,0,65

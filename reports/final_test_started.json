@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "name": "SVM RBF",
+  "classes": [
+    "cloudy",
+    "foggy",
+    "rainy",
+    "shine",
+    "sunrise"
+  ],
+  "preprocess": {
+    "size": [
+      64,
+      64
+    ],
+    "color": "RGB",
+    "dtype": "float32",
+    "scale": 255,
+    "order": "C",
+    "resize": "INTER_LINEAR",
+    "decoder": "cv2.IMREAD_COLOR",
+    "features": 12288
+  },
+  "dataset_id": "0389506b9437cf3339e2b15342170545aa55145cdf61b61fe4d7df971f629507",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.8.0",
+    "opencv-python-headless": "4.11.0.86",
+    "xgboost": "3.0.5",
+    "lightgbm": "4.6.0",
+    "streamlit": "1.49.1",
+    "joblib": "1.5.3",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8"
+  },
+  "cv_macro_f1": 0.7607680422771993,
+  "created_at": "2026-10-07T15:26:44.832194+00:00",
+  "model_sha256": "7fdcdc401f762f8c07437d8e5adc8a8353c7d775045f538ebe246567169921ed"
+}

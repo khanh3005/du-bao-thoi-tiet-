@@ -1,0 +1,38 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns    
+import os
+# Khai báo đường dẫn
+DATA_DIR = r"D:\Đồ án học máy"
+
+# Tải danh sách nhãn và dữ liệu y kèm đường dẫn tuyệt đối
+y_train = np.load(os.path.join(DATA_DIR, 'y_train.npy'))
+y_test = np.load(os.path.join(DATA_DIR, 'y_test.npy'))
+classes = np.load(os.path.join(DATA_DIR, 'classes.npy'))
+
+y_all = np.concatenate([y_train, y_test])
+
+# Tính số lượng ảnh mỗi nhãn
+unique, counts = np.unique(y_all, return_counts=True)
+label_counts = dict(zip(classes, counts))
+# Vẽ biểu đồ cột bằng Seaborn
+plt.figure(figsize=(9, 5))
+sns.barplot(x=list(label_counts.keys()), y=list(label_counts.values()), palette='viridis')
+
+plt.title('Phân bố số lượng hình ảnh theo các trạng thái thời tiết', fontsize=14, fontweight='bold')
+plt.xlabel('Trạng thái thời tiết (Classes)', fontsize=12)
+plt.ylabel('Số lượng hình ảnh', fontsize=12)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+# Hiển thị số lượng cụ thể lên đầu mỗi cột
+for i, count in enumerate(label_counts.values()):
+    plt.text(i, count + 5, str(count), ha='center', va='bottom', fontsize=11, fontweight='bold')
+
+# Lưu biểu đồ thành file ảnh để chèn vào file Word
+plt.tight_layout()
+plt.savefig('class_distribution.png', dpi=300)
+plt.show()
+
+print("Bảng thống kê số lượng ảnh:")
+for k, v in label_counts.items():
+    print(f"- {k}: {v} ảnh")

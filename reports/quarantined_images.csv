@@ -1,0 +1,3 @@
+original_path,quarantine_path,reason
+dataset/rainy/rain141.jpg,quarantine/rainy/rain141.jpg,GIF content with JPG extension; excluded without changing pixels or labels
+dataset/shine/shine131.jpg,quarantine/shine/shine131.jpg,GIF content with JPG extension; excluded without changing pixels or labels

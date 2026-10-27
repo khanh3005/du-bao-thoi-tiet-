@@ -1,0 +1,17 @@
+                          file true_label predicted  confidence  correct
+    dataset/cloudy/cloudy1.jpg     cloudy    cloudy    0.848520     True
+   dataset/cloudy/cloudy10.jpg     cloudy    cloudy    0.901328     True
+  dataset/cloudy/cloudy100.jpg     cloudy    cloudy    0.822926     True
+      dataset/foggy/foggy1.jpg      foggy     foggy    0.921199     True
+     dataset/foggy/foggy10.jpg      foggy     foggy    0.920802     True
+    dataset/foggy/foggy100.jpg      foggy     foggy    0.927195     True
+       dataset/rainy/rain1.jpg      rainy     rainy    0.859658     True
+      dataset/rainy/rain10.jpg      rainy     rainy    0.878033     True
+     dataset/rainy/rain100.jpg      rainy     rainy    0.890342     True
+      dataset/shine/shine1.jpg      shine     shine    0.981481     True
+     dataset/shine/shine10.jpg      shine     shine    0.973638     True
+    dataset/shine/shine100.jpg      shine     shine    0.948030     True
+  dataset/sunrise/sunrise1.jpg    sunrise   sunrise    0.989084     True
+dataset/sunrise/sunrise102.jpg    sunrise   sunrise    0.975286     True
+dataset/sunrise/sunrise103.jpg    sunrise   sunrise    0.996436     True
+Preprocess file/bytes/saved features: IDENTICAL. Đây là ảnh Train, không phải điểm Test.

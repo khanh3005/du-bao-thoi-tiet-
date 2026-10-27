@@ -1,0 +1,5 @@
+RGB, /255, float32, C-order, lossless upload: PASS
+Corrupt input rejected: PASS
+All saved features equal inference preprocessing; label/manifest alignment: PASS
+Train/Test exact and detected near-duplicate group overlap = 0; CV group overlap = 0: PASS
+Serialized model metadata, mapping, digest, and file/upload predictions: PASS

@@ -1,0 +1,27 @@
+Logistic Regression [0] CV Macro F1=0.6912, Accuracy=0.6955
+Logistic Regression [1] CV Macro F1=0.6729, Accuracy=0.6775
+Gaussian Naive Bayes [0] CV Macro F1=0.5939, Accuracy=0.6098
+Gaussian Naive Bayes [1] CV Macro F1=0.5937, Accuracy=0.6098
+Random Forest [0] CV Macro F1=0.7370, Accuracy=0.7427
+Random Forest [1] CV Macro F1=0.7368, Accuracy=0.7436
+SVM Linear [0] CV Macro F1=0.7203, Accuracy=0.7213
+SVM Linear [1] CV Macro F1=0.6968, Accuracy=0.6947
+SVM RBF [0] CV Macro F1=0.7503, Accuracy=0.7582
+SVM RBF [1] CV Macro F1=0.7608, Accuracy=0.7659
+SVM Polynomial [0] CV Macro F1=0.7352, Accuracy=0.7384
+SVM Polynomial [1] CV Macro F1=0.7479, Accuracy=0.7504
+XGBoost [0] CV Macro F1=0.7325, Accuracy=0.7376
+XGBoost [1] CV Macro F1=0.7342, Accuracy=0.7401
+LightGBM [0] CV Macro F1=0.7285, Accuracy=0.7333
+LightGBM [1] CV Macro F1=0.7174, Accuracy=0.7238
+Chốt model từ CV: SVM RBF
+{
+  "n": 294,
+  "accuracy": 0.7278911564625851,
+  "macro_f1": 0.7244444444444444,
+  "train_accuracy": 0.9957118353344768,
+  "train_test_gap": 0.26782067887189176,
+  "selected_model": "SVM RBF",
+  "cv_macro_f1": 0.7607680422771993,
+  "dataset_id": "0389506b9437cf3339e2b15342170545aa55145cdf61b61fe4d7df971f629507"
+}

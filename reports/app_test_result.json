@@ -1,0 +1,8 @@
+{
+  "method": "Streamlit AppTest with mocked uploader, real button/prediction rendering",
+  "images_checked": 30,
+  "matches": 30,
+  "initial_app_exceptions": 0,
+  "invalid_upload_handled": true,
+  "note": "Not a manual browser or Windows test."
+}

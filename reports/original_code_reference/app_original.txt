@@ -1,0 +1,158 @@
+from pathlib import Path
+
+import cv2
+import joblib
+import numpy as np
+import streamlit as st
+
+
+APP_DIR = Path(__file__).resolve().parent
+MODEL_PATH = APP_DIR / "best_weather_model.pkl"
+CLASSES_PATH = APP_DIR / "classes.npy"
+IMAGE_SIZE = (64, 64)
+
+st.set_page_config(
+	page_title="Weather Vision | Image Classifier",
+	page_icon="🌦️",
+	layout="wide",
+	initial_sidebar_state="collapsed",
+)
+
+st.markdown(
+	"""
+	<style>
+	@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+	:root { --ink: #171717; --muted: #666666; --line: #dddddd; --paper: #ffffff; --surface: #f5f5f5; --surface-strong: #ebebeb; }
+	html, body, [data-testid="stAppViewContainer"] { font-family: 'DM Sans', sans-serif; color: var(--ink); }
+	.stApp, [data-testid="stAppViewContainer"] { background: var(--paper); }
+	[data-testid="stHeader"] { background: transparent; }
+	.block-container { max-width: 1180px; padding-top: 2.4rem; padding-bottom: 4rem; }
+	h1, h2, h3 { font-family: 'Manrope', sans-serif; letter-spacing: 0; }
+	.eyebrow { color: var(--muted); font-weight: 700; font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; }
+	.hero-title { color: var(--ink); font: 800 2.55rem/1.12 'Manrope', sans-serif; margin: .35rem 0 .6rem; }
+	.hero-copy { color: var(--muted); font-size: 1rem; margin-bottom: 1.7rem; }
+	.panel { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); padding: 1.15rem 1.25rem; }
+	.section-label { color: var(--ink); font: 700 1.05rem 'Manrope', sans-serif; margin-bottom: .25rem; }
+	.section-hint { color: var(--muted); font-size: .88rem; margin-bottom: .9rem; }
+	.result-label { color: var(--muted); font-size: .82rem; text-transform: uppercase; font-weight: 700; letter-spacing: .08em; }
+	.result-value { color: var(--ink); font: 800 2rem 'Manrope', sans-serif; text-transform: capitalize; margin: .25rem 0 .65rem; }
+	div[data-testid="stFileUploader"] section { border-radius: 8px; border-color: #bdbdbd; background: #fafafa; color: var(--ink); }
+	[data-testid="stFileUploader"] label, [data-testid="stFileUploader"] small { color: var(--muted); }
+	div.stButton > button { background: var(--ink); color: white; border: 1px solid var(--ink); border-radius: 6px; font-weight: 700; min-height: 2.8rem; }
+	div.stButton > button:hover { background: #3a3a3a; color: white; border-color: #3a3a3a; }
+	div.stButton > button:focus-visible { outline: 3px solid #999999; outline-offset: 2px; }
+	[data-testid="stMetric"] { background: var(--surface-strong); color: var(--ink); padding: .8rem 1rem; border-radius: 6px; }
+	[data-testid="stMetricLabel"] { color: var(--muted); }
+	[data-testid="stMetricValue"] { color: var(--ink); }
+	[data-testid="stMarkdownContainer"] { color: var(--ink); }
+	div[data-testid="stButton"] button, div[data-testid="stButton"] button p, div[data-testid="stButton"] button [data-testid="stMarkdownContainer"] { color: #ffffff !important; -webkit-text-fill-color: #ffffff; }
+	[data-testid="stCaptionContainer"] { color: var(--muted); }
+	hr { border-color: var(--line); }
+	@media (max-width: 640px) { .block-container { padding: 1.2rem 1rem 2.5rem; } .hero-title { font-size: 2rem; } }
+	</style>
+	""",
+	unsafe_allow_html=True,
+)
+
+
+@st.cache_resource(show_spinner="Đang tải mô hình phân loại...")
+def load_artifacts():
+	if not MODEL_PATH.is_file():
+		raise FileNotFoundError(f"Không tìm thấy mô hình: {MODEL_PATH.name}")
+	if not CLASSES_PATH.is_file():
+		raise FileNotFoundError(f"Không tìm thấy danh sách nhãn: {CLASSES_PATH.name}")
+	model = joblib.load(MODEL_PATH)
+	classes = np.load(CLASSES_PATH, allow_pickle=True).astype(str)
+	return model, classes
+
+
+def preprocess_image(image_bytes: bytes) -> np.ndarray:
+	encoded = np.frombuffer(image_bytes, dtype=np.uint8)
+	image_bgr = cv2.imdecode(encoded, cv2.IMREAD_COLOR)
+	if image_bgr is None:
+		raise ValueError("Không thể đọc ảnh này. Hãy thử tệp PNG hoặc JPEG hợp lệ.")
+	image_rgb = cv2.cvtColor(cv2.resize(image_bgr, IMAGE_SIZE), cv2.COLOR_BGR2RGB)
+	return (image_rgb / 255.0).reshape(1, -1)
+
+
+def label_name(encoded_label, classes: np.ndarray) -> str:
+	try:
+		index = int(encoded_label)
+		if 0 <= index < len(classes):
+			return str(classes[index])
+	except (TypeError, ValueError):
+		pass
+	return str(encoded_label)
+
+
+st.markdown('<div class="eyebrow">Computer Vision · Weather</div>', unsafe_allow_html=True)
+st.markdown('<div class="hero-title">Weather Vision</div>', unsafe_allow_html=True)
+st.markdown(
+	'<div class="hero-copy">Phân loại trạng thái thời tiết từ một bức ảnh, ngay trên trình duyệt.</div>',
+	unsafe_allow_html=True,
+)
+
+try:
+	model, classes = load_artifacts()
+except Exception as error:
+	st.error(f"Chưa thể tải mô hình. {error}")
+	st.info("Đặt best_weather_model.pkl và classes.npy cùng thư mục với app.py, sau đó cài dependencies trong requirements.txt.")
+	st.stop()
+
+upload_column, result_column = st.columns([1.02, 1], gap="large")
+
+with upload_column:
+	st.markdown('<div class="section-label">Chọn ảnh</div>', unsafe_allow_html=True)
+	st.markdown('<div class="section-hint">Ảnh bầu trời hoặc phong cảnh · JPG, JPEG, PNG</div>', unsafe_allow_html=True)
+	uploaded_file = st.file_uploader(
+		"Tải ảnh lên",
+		type=["jpg", "jpeg", "png"],
+		label_visibility="collapsed",
+	)
+	if uploaded_file is not None:
+		st.image(uploaded_file, use_container_width=True)
+	else:
+		st.markdown(
+			'<div class="panel" style="min-height:250px;display:flex;align-items:center;justify-content:center;color:#666666;">'
+			'<div style="text-align:center"><div style="font-size:2rem">☁</div><div>Ảnh xem trước sẽ hiển thị tại đây</div></div></div>',
+			unsafe_allow_html=True,
+		)
+
+with result_column:
+	st.markdown('<div class="section-label">Kết quả</div>', unsafe_allow_html=True)
+	st.markdown('<div class="section-hint">Dự đoán từ mô hình thời tiết đã huấn luyện</div>', unsafe_allow_html=True)
+	if uploaded_file is None:
+		st.markdown(
+			'<div class="panel" style="min-height:250px;display:flex;align-items:center;color:#666666;">'
+			'Chọn một ảnh để bắt đầu phân tích.</div>',
+			unsafe_allow_html=True,
+		)
+	elif st.button("Phân tích ảnh", type="primary", use_container_width=True):
+		try:
+			features = preprocess_image(uploaded_file.getvalue())
+			prediction = model.predict(features)[0]
+			predicted_label = label_name(prediction, classes)
+
+			st.markdown('<div class="panel">', unsafe_allow_html=True)
+			st.markdown('<div class="result-label">Thời tiết dự đoán</div>', unsafe_allow_html=True)
+			st.markdown(f'<div class="result-value">{predicted_label}</div>', unsafe_allow_html=True)
+
+			if hasattr(model, "predict_proba"):
+				probabilities = model.predict_proba(features)[0]
+				model_classes = getattr(model, "classes_", range(len(probabilities)))
+				ranked = sorted(
+					((label_name(class_id, classes), float(score)) for class_id, score in zip(model_classes, probabilities)),
+					key=lambda item: item[1],
+					reverse=True,
+				)
+				st.metric("Độ tin cậy", f"{ranked[0][1] * 100:.1f}%")
+				st.markdown("**Phân bố xác suất**")
+				st.bar_chart({name: score for name, score in ranked}, horizontal=True, height=230, color="#666666")
+			else:
+				st.caption("Mô hình này không cung cấp xác suất dự đoán.")
+			st.markdown('</div>', unsafe_allow_html=True)
+		except Exception as error:
+			st.error(f"Không thể phân tích ảnh: {error}")
+
+st.markdown("---")
+st.caption(f"Mô hình: {MODEL_PATH.name} · {len(classes)} lớp · Đầu vào: 64 × 64 px")

@@ -1,0 +1,32 @@
+model,candidate,cv_macro_f1,cv_f1_std,cv_accuracy,cv_train_accuracy,seconds,parameters
+SVM RBF,1,0.7607680422771993,0.013922752488804618,0.765881324039965,0.9969980998258633,66.0069625189999,"Pipeline(steps=[('scaler', StandardScaler()),
+                ('model',
+                 SVC(C=10, cache_size=512, probability=True, random_state=42))])"
+SVM Polynomial,1,0.7478957149926827,0.018007517787358186,0.7504483255152431,0.9794156992100437,25.23256626700004,"Pipeline(steps=[('scaler', StandardScaler()),
+                ('model',
+                 SVC(C=1, cache_size=512, coef0=1, kernel='poly',
+                     probability=True, random_state=42))])"
+Random Forest,0,0.7369918111713979,0.013488515106919126,0.7427252007526568,1.0,8.778392454999903,"RandomForestClassifier(n_estimators=160, n_jobs=2, random_state=42)"
+XGBoost,1,0.734212918663795,0.01117565376188355,0.7401478811650279,1.0,216.68916072000002,"XGBClassifier(base_score=None, booster=None, callbacks=None,
+              colsample_bylevel=None, colsample_bynode=None,
+              colsample_bytree=0.5, device=None, early_stopping_rounds=None,
+              enable_categorical=False, eval_metric='mlogloss',
+              feature_types=None, feature_weights=None, gamma=None,
+              grow_policy=None, importance_type=None,
+              interaction_constraints=None, learning_rate=0.08, max_bin=64,
+              max_cat_threshold=None, max_cat_to_onehot=None,
+              max_delta_step=None, max_depth=5, max_leaves=None,
+              min_child_weight=None, missing=nan, monotone_constraints=None,
+              multi_strategy=None, n_estimators=120, n_jobs=2,
+              num_parallel_tree=None, ...)"
+LightGBM,0,0.7284506179151826,0.010758419468882242,0.7332860714317264,1.0,154.28862751799988,"LGBMClassifier(colsample_bytree=0.7, learning_rate=0.05, n_estimators=160,
+               n_jobs=2, num_leaves=7, random_state=42, reg_lambda=1,
+               verbosity=-1)"
+SVM Linear,0,0.7202734766151156,0.01308708704776277,0.7212806650235426,0.9515405967848127,23.96623905199999,"Pipeline(steps=[('scaler', StandardScaler()),
+                ('model',
+                 SVC(C=0.001, cache_size=512, kernel='linear', probability=True,
+                     random_state=42))])"
+Logistic Regression,0,0.6911778700188208,0.006348108329177671,0.6955450136485304,0.9948547519241607,29.122135814999865,"Pipeline(steps=[('scaler', StandardScaler()),
+                ('model',
+                 LogisticRegression(C=0.01, max_iter=2500, random_state=42))])"
+Gaussian Naive Bayes,0,0.5939393275848552,0.008096195127690085,0.6097845387326742,0.6397962413386578,0.5148342269999375,GaussianNB()

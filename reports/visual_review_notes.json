@@ -1,0 +1,20 @@
+{
+  "exact_duplicate_groups": 37,
+  "near_duplicate_sample_review": "Representative panel viewed; many resized/compressed copies. Not all candidate pairs manually reviewed.",
+  "phash_false_positive": {
+    "a": "dataset/foggy/foggy219.jpg",
+    "b": "dataset/sunrise/sunrise305.jpg",
+    "action": "Kept labels; conservatively kept same split group."
+  },
+  "external_confirmed_near_copies": [
+    "rain_3.jpg -> dataset/rainy/rain221.jpeg",
+    "shine_1.jpg -> dataset/shine/shine200.jpg"
+  ],
+  "label_review_scope": "25 fixed random Train images plus all 30 external thumbnails, not exhaustive dataset relabeling.",
+  "observations": [
+    "Cloudy/shine semantic overlap",
+    "Rainy includes photos and illustrations",
+    "Foggy includes day/night scenes",
+    "Sunrise vs sunset cannot always be inferred from an isolated image"
+  ]
+}

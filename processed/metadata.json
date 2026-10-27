@@ -1,0 +1,45 @@
+{
+  "dataset_id": "0389506b9437cf3339e2b15342170545aa55145cdf61b61fe4d7df971f629507",
+  "classes": [
+    "cloudy",
+    "foggy",
+    "rainy",
+    "shine",
+    "sunrise"
+  ],
+  "preprocess": {
+    "size": [
+      64,
+      64
+    ],
+    "color": "RGB",
+    "dtype": "float32",
+    "scale": 255,
+    "order": "C",
+    "resize": "INTER_LINEAR",
+    "decoder": "cv2.IMREAD_COLOR",
+    "features": 12288
+  },
+  "raw": 1498,
+  "unique": 1460,
+  "removed_duplicates": 38,
+  "near_duplicate_pairs": 103,
+  "phash_threshold": 6,
+  "train_count": 1166,
+  "test_count": 294,
+  "exact_overlap": 0,
+  "group_overlap": 0,
+  "split": "First fold of StratifiedGroupKFold(5, shuffle=True, random_state=42)",
+  "checksums": {
+    "processed/X_test.npy": "7b9a45c0bfb32dce0432d1efd93cdf562596ee40ebe9e52982c5522e74623772",
+    "processed/X_train.npy": "083f6d0e6986d7ab9259cfc5efa57e8d24cd64dba717a7ed7ad12028771c50a3",
+    "processed/classes.npy": "816827e8dcf0a5f64ad20516c6c222f25633f2a637ed8e6a196cdf83dccf6d04",
+    "processed/groups_test.npy": "1d40eb826349398403510aad2d3652f4e5d36d51c6d9a1d34c6290b246af7462",
+    "processed/groups_train.npy": "5811919d8c26d0793799665423a89fe364cc3a2a1c7c9ebdcc6e6834449fa2f3",
+    "processed/y_test.npy": "41542b15c29c2bf3f193a372097015624f7c1084671fcc9345cc9d148518827d",
+    "processed/y_train.npy": "64a123bc5122a07bcd38cd353e577987da1191b16938374b3f84d79a816340c6",
+    "reports/clean_manifest.csv": "3e4fa992739f05dceb06925a51c1ac58fe29d853c9a1739c88bc7b3b4d846505",
+    "reports/test_manifest.csv": "61b7c7c1d0de881c158ed2b1a2b13aa46be465b760fc6d15fa94b3ada9e50f9d",
+    "reports/train_manifest.csv": "5fc575a45c58b18db31e7962227a05b36e2713b84c70737881ebb613a9973408"
+  }
+}

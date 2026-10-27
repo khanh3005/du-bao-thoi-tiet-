@@ -1,0 +1,3 @@
+file,type,matched_dataset_file,distance
+rain_3.jpg,near_candidate,dataset/rainy/rain221.jpeg,0
+shine_1.jpg,near_candidate,dataset/shine/shine200.jpg,0

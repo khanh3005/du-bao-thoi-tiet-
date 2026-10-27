@@ -1,0 +1,7 @@
+{
+  "model": "XGBoost + HSV/HOG (EXPERIMENTAL)",
+  "train_images_parity_checked": 15,
+  "transformed_feature_count": 1908,
+  "experimental_app_load": "PASS",
+  "test_or_external_predictions_performed": false
+}

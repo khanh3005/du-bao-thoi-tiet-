@@ -1,0 +1,40 @@
+  class  raw  unique  train  test
+ cloudy  300     291    232    59
+  foggy  300     291    232    59
+  rainy  299     287    229    58
+  shine  249     246    197    49
+sunrise  350     345    276    69
+Train/Test duplicate overlap: 0; near-duplicate group overlap: 0
+{
+  "dataset_id": "0389506b9437cf3339e2b15342170545aa55145cdf61b61fe4d7df971f629507",
+  "classes": [
+    "cloudy",
+    "foggy",
+    "rainy",
+    "shine",
+    "sunrise"
+  ],
+  "preprocess": {
+    "size": [
+      64,
+      64
+    ],
+    "color": "RGB",
+    "dtype": "float32",
+    "scale": 255,
+    "order": "C",
+    "resize": "INTER_LINEAR",
+    "decoder": "cv2.IMREAD_COLOR",
+    "features": 12288
+  },
+  "raw": 1498,
+  "unique": 1460,
+  "removed_duplicates": 38,
+  "near_duplicate_pairs": 103,
+  "phash_threshold": 6,
+  "train_count": 1166,
+  "test_count": 294,
+  "exact_overlap": 0,
+  "group_overlap": 0,
+  "split": "First fold of StratifiedGroupKFold(5, shuffle=True, random_state=42)"
+}

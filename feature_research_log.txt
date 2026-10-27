@@ -1,0 +1,17 @@
+{'model': 'Logistic Regression', 'candidate': 0, 'cv_macro_f1': 0.808230152947306, 'cv_accuracy': 0.8130372176432653, 'cv_f1_std': 0.013285791478270529, 'cv_train_accuracy': 0.9991419991419992, 'seconds': 5.755578008000157}
+{'model': 'Logistic Regression', 'candidate': 1, 'cv_macro_f1': 0.8085972388825627, 'cv_accuracy': 0.8130416346434156, 'cv_f1_std': 0.012296511627027464, 'cv_train_accuracy': 1.0, 'seconds': 6.12968924200004}
+{'model': 'Gaussian Naive Bayes', 'candidate': 0, 'cv_macro_f1': 0.7877041119424543, 'cv_accuracy': 0.7916324349155027, 'cv_f1_std': 0.032947561198490724, 'cv_train_accuracy': 0.8297612706353066, 'seconds': 5.49698966699998}
+{'model': 'Gaussian Naive Bayes', 'candidate': 1, 'cv_macro_f1': 0.7373941095922826, 'cv_accuracy': 0.7453179798408113, 'cv_f1_std': 0.0315453758391932, 'cv_train_accuracy': 0.7817292136058204, 'seconds': 5.217157270000371}
+{'model': 'Random Forest', 'candidate': 0, 'cv_macro_f1': 0.8315355326669395, 'cv_accuracy': 0.8370590729600084, 'cv_f1_std': 0.008236650340237869, 'cv_train_accuracy': 1.0, 'seconds': 9.242291919999843}
+{'model': 'Random Forest', 'candidate': 1, 'cv_macro_f1': 0.844002463069948, 'cv_accuracy': 0.8490600623680421, 'cv_f1_std': 0.0064778719920386375, 'cv_train_accuracy': 0.9991419991419992, 'seconds': 9.779460580999967}
+{'model': 'SVM Linear', 'candidate': 0, 'cv_macro_f1': 0.814460974404207, 'cv_accuracy': 0.8190443378475075, 'cv_f1_std': 0.012920868693733005, 'cv_train_accuracy': 0.9849927047870493, 'seconds': 7.869786961000045}
+{'model': 'SVM Linear', 'candidate': 1, 'cv_macro_f1': 0.8064437610641889, 'cv_accuracy': 0.8104643150557868, 'cv_f1_std': 0.011068362385327019, 'cv_train_accuracy': 1.0, 'seconds': 8.789421518999916}
+{'model': 'SVM RBF', 'candidate': 0, 'cv_macro_f1': 0.8191295383784952, 'cv_accuracy': 0.822480763964346, 'cv_f1_std': 0.009332163694493826, 'cv_train_accuracy': 0.9867070522597515, 'seconds': 11.419780490999983}
+{'model': 'SVM RBF', 'candidate': 1, 'cv_macro_f1': 0.8325787794364626, 'cv_accuracy': 0.8361977579307238, 'cv_f1_std': 0.0056332707736963614, 'cv_train_accuracy': 1.0, 'seconds': 12.196150193999983}
+{'model': 'SVM Polynomial', 'candidate': 0, 'cv_macro_f1': 0.80872683231952, 'cv_accuracy': 0.8139051581727754, 'cv_f1_std': 0.017106329749969583, 'cv_train_accuracy': 0.9648363015972271, 'seconds': 9.459375484999782}
+{'model': 'SVM Polynomial', 'candidate': 1, 'cv_macro_f1': 0.8277495967863938, 'cv_accuracy': 0.8327745828143357, 'cv_f1_std': 0.013108184924661077, 'cv_train_accuracy': 1.0, 'seconds': 9.211140056999739}
+{'model': 'XGBoost', 'candidate': 0, 'cv_macro_f1': 0.8651568426244047, 'cv_accuracy': 0.8679339040097528, 'cv_f1_std': 0.007184301836966471, 'cv_train_accuracy': 1.0, 'seconds': 19.50943224599996}
+{'model': 'XGBoost', 'candidate': 1, 'cv_macro_f1': 0.8596729460249547, 'cv_accuracy': 0.8627836818346452, 'cv_f1_std': 0.0072893039041040325, 'cv_train_accuracy': 1.0, 'seconds': 28.179666008999902}
+{'model': 'LightGBM', 'candidate': 0, 'cv_macro_f1': 0.8620784711815938, 'cv_accuracy': 0.8653499589218986, 'cv_f1_std': 0.003727278356200344, 'cv_train_accuracy': 1.0, 'seconds': 29.652346102000138}
+{'model': 'LightGBM', 'candidate': 1, 'cv_macro_f1': 0.8611180794300717, 'cv_accuracy': 0.8645063118932147, 'cv_f1_std': 0.010327526150310004, 'cv_train_accuracy': 1.0, 'seconds': 36.812562636000166}
+SAVED EXPERIMENTAL CANDIDATE, NOT FINAL-TESTED: XGBoost + HSV/HOG (EXPERIMENTAL)

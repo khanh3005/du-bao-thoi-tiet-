@@ -1,0 +1,12 @@
+{
+  "old_train_shape": [
+    1200,
+    12288
+  ],
+  "old_test_shape": [
+    300,
+    12288
+  ],
+  "test_rows_duplicated_in_train": 15,
+  "unique_hash_overlap": 15
+}

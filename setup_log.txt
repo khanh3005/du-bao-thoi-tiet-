@@ -1,0 +1,20 @@
+Python: 3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]
+Interpreter: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python
+Project: /workspace/scratch/d282c37befa9/weather_ml_project
+numpy 2.3.5
+pandas 2.2.3
+cv2 4.11.0
+sklearn 1.8.0
+scipy 1.17.0
+matplotlib 3.10.8
+joblib 1.5.3
+xgboost 3.0.5
+lightgbm 4.6.0
+streamlit 1.49.1
+cloudy: 300 files
+foggy: 300 files
+rainy: 299 files
+shine: 249 files
+sunrise: 350 files
+
+CHECK SETUP: PASS

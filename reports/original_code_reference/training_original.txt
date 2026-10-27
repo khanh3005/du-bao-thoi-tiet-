@@ -1,0 +1,171 @@
+import numpy as np
+import pandas as pd
+import time
+import joblib
+import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Thuật toán Baseline 
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+
+# Thuật toán Nâng cao 
+from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
+from lightgbm import LGBMClassifier
+
+# Thuật toán Đánh giá chỉ số 
+from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
+
+# Tạo thư mục tự động để chứa các biểu đồ báo cáo
+IMAGE_DIR = "report_images"
+os.makedirs(IMAGE_DIR, exist_ok=True)
+
+X_train = np.load('X_train.npy')
+X_test  = np.load('X_test.npy')
+y_train = np.load('y_train.npy')
+y_test  = np.load('y_test.npy')
+classes = np.load('classes.npy')
+
+print(f"-> Tập huấn luyện (X_train) : {X_train.shape} mẫu x đặc trưng")
+print(f"-> Tập kiểm thử (X_test)   : {X_test.shape} mẫu x đặc trưng")
+print(f"-> Các nhãn thời tiết       : {list(classes)}\n")
+
+# Khai báo các mô hình để so sánh theo đúng yêu cầu đề bài
+models = {
+    # --- Nhóm Baseline  ---
+    "Logistic Regression": LogisticRegression(max_iter=2000, random_state=42),
+    "Gaussian Naive Bayes": GaussianNB(),
+
+    # --- Nhóm Nâng cao & Thực nghiệm Kernel SVM  ---
+    "SVM (Kernel Linear)": SVC(kernel='linear', probability=True, random_state=42),
+    "SVM (Kernel Poly)"  : SVC(kernel='poly', probability=True, random_state=42),
+    "SVM (Kernel RBF)"   : SVC(kernel='rbf', probability=True, random_state=42),
+
+    # --- Nhóm Ensemble & Boosting  ---
+    "Random Forest"      : RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1),
+    # use_label_encoder đã bị loại bỏ khỏi XGBoost >= 2.0 -> truyền vào sẽ lỗi/cảnh báo,
+    # nên không cần khai báo nữa (mặc định XGBoost đã tự xử lý nhãn dạng số).
+    "XGBoost"            : XGBClassifier(eval_metric='mlogloss', random_state=42, n_jobs=-1),
+    "LightGBM"           : LGBMClassifier(random_state=42, verbose=-1, n_jobs=-1)
+}
+
+results = {}
+
+for name, model in models.items():
+    try:
+        # 4.1. Đo thời gian huấn luyện
+        start_time = time.time()
+        model.fit(X_train, y_train)
+        train_time = time.time() - start_time
+
+        # 4.2. Dự đoán trên tập Test độc lập
+        y_pred = model.predict(X_test)
+        acc = accuracy_score(y_test, y_pred)
+        f1_macro = f1_score(y_test, y_pred, average='macro')
+
+        # Lưu trữ kết quả
+        results[name] = {
+            'Accuracy': acc,
+            'F1_macro': f1_macro,
+            'Time': train_time,
+            'Model': model,
+            'y_pred': y_pred
+        }
+
+        print(f"► [{name}]")
+        print(f"   + Độ chính xác (Accuracy) : {acc * 100:.2f}%")
+        print(f"   + F1-macro                : {f1_macro * 100:.2f}%")
+        print(f"   + Thời gian huấn luyện    : {train_time:.4f} giây")
+
+        # 4.3. Vẽ và xuất biểu đồ Ma trận nhầm lẫn (Confusion Matrix)
+        cm = confusion_matrix(y_test, y_pred)
+        plt.figure(figsize=(6, 5))
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+                    xticklabels=classes, yticklabels=classes)
+        plt.title(f'Confusion Matrix: {name}')
+        plt.xlabel('Nhãn Dự đoán (Predicted)')
+        plt.ylabel('Nhãn Thực tế (Actual)')
+        plt.tight_layout()
+
+        # Lưu ảnh vào thư mục report_images
+        safe_filename = name.replace(" ", "_").replace("(", "").replace(")", "")
+        plt.savefig(f"{IMAGE_DIR}/CM_{safe_filename}.png", dpi=300)
+        plt.close()
+
+    except Exception as e:
+        # Một mô hình lỗi (vd: thiếu thư viện trên máy đồng đội) sẽ không làm
+        # sập toàn bộ pipeline của các mô hình còn lại.
+        print(f"  [{name}] Bỏ qua do lỗi: {e}")
+
+print(f"\n-> Đã lưu ảnh Confusion Matrix của các mô hình chạy thành công vào '{IMAGE_DIR}/'\n")
+
+
+print("=" * 70)
+print(" BẢNG TỔNG HỢP HIỆU NĂNG CỦA TẤT CẢ MÔ HÌNH (sắp xếp theo Accuracy)")
+print("=" * 70)
+
+summary_df = pd.DataFrame([
+    {
+        'Mô hình': name,
+        'Accuracy (%)': r['Accuracy'] * 100,
+        'F1-macro (%)': r['F1_macro'] * 100,
+        'Thời gian (s)': r['Time']
+    }
+    for name, r in results.items()
+]).sort_values(by='Accuracy (%)', ascending=False).reset_index(drop=True)
+
+print(summary_df.to_string(index=False, float_format='%.2f'))
+summary_df.to_csv(f"{IMAGE_DIR}/model_comparison_summary.csv", index=False)
+print(f"\n-> Đã lưu bảng tổng hợp vào '{IMAGE_DIR}/model_comparison_summary.csv'\n")
+
+if 'XGBoost' in results and 'LightGBM' in results:
+    xgb_acc  = results['XGBoost']['Accuracy'] * 100
+    xgb_time = results['XGBoost']['Time']
+
+    lgb_acc  = results['LightGBM']['Accuracy'] * 100
+    lgb_time = results['LightGBM']['Time']
+
+    print("=" * 70)
+    print("SO SÁNH RIÊNG: XGBOOST vs LIGHTGBM")
+    print("=" * 70)
+    print(f"{'Tiêu chí':<25} | {'XGBoost':<15} | {'LightGBM':<15}")
+    print("-" * 60)
+    print(f"{'Accuracy (%)':<25} | {xgb_acc:<15.2f} | {lgb_acc:<15.2f}")
+    print(f"{'Thời gian chạy (Giây)':<25} | {xgb_time:<15.4f} | {lgb_time:<15.4f}")
+    print("-" * 60)
+
+    if lgb_time < xgb_time:
+        speedup = (xgb_time - lgb_time) / xgb_time * 100
+        print(f"=> BẢN CHẤT: LightGBM nhanh hơn XGBoost {speedup:.1f}% nhờ cơ chế Leaf-wise Growth.")
+    else:
+        print("=> BẢN CHẤT: XGBoost xử lý tốt hơn trên quy mô tập dữ liệu hiện tại.")
+print("\n")
+
+
+if not results:
+    raise RuntimeError("Không có mô hình nào huấn luyện thành công — kiểm tra lại dữ liệu/thư viện.")
+
+# Tìm mô hình có Accuracy cao nhất
+best_name = max(results, key=lambda k: results[k]['Accuracy'])
+best_model = results[best_name]['Model']
+best_acc   = results[best_name]['Accuracy'] * 100
+best_f1    = results[best_name]['F1_macro'] * 100
+
+print(f" MÔ HÌNH TỐT NHẤT (theo Accuracy) : {best_name.upper()}")
+print(f" ĐỘ CHÍNH XÁC CAO NHẤT             : {best_acc:.2f}%")
+print(f" F1-macro tương ứng               : {best_f1:.2f}%\n")
+
+
+# In Báo cáo Phân lớp Chi tiết (Classification Report) của Mô hình tốt nhất
+print(f"--- BÁO CÁO CHI TIẾT (CLASSIFICATION REPORT) CỦA {best_name} ---")
+print(classification_report(y_test, results[best_name]['y_pred'], target_names=classes))
+
+# Đóng gói mô hình dưới dạng .pkl
+OUTPUT_MODEL_FILE = 'best_weather_model.pkl'
+joblib.dump(best_model, OUTPUT_MODEL_FILE)
+
+print(f"✅ ĐÃ ĐÓNG GÓI MÔ HÌNH TỐT NHẤT THÀNH FILE: '{OUTPUT_MODEL_FILE}'")
+print("   Sẵn sàng để tích hợp vào Web Streamlit!")
